@@ -1,0 +1,17 @@
+{
+  "name": "ga-gutenberg-blocks",
+  "version": "1.0.0",
+  "description": "Adds Gutenberg Blocks into the website",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "author": "Ryan Wells",
+  "license": "ISC",
+  "dependencies": {
+    "@svgr/webpack": "^4.3.3",
+    "@wordpress/scripts": "^5.0.0",
+    "url-loader": "^2.1.0"
+  }
+}
