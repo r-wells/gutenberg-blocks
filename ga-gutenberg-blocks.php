@@ -40,7 +40,9 @@ function ga_register_gutenberg_blocks() {
 
     //Array of blocks
     $blocks = array(
-        'ga/testimonial'
+        'ga/testimonial',
+        'ga/hero',
+        'ga/imagetext'
     );
 
     //Add the blocks and the stylesheets

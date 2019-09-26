@@ -1,5 +1,6 @@
 const { registerBlockType } = wp.blocks;
-const { RichText } = wp.editor; //Step 1
+const { RichText, MediaUpload, InspectorControls, ColorPalette } = wp.editor; //Step 1
+const { Button, PanelBody } = wp.components;
 import { ReactComponent as Logo } from "../ga-logo.svg";
 
 /**
@@ -22,46 +23,125 @@ registerBlockType("ga/testimonial", {
       type: "string",
       source: "html",
       selector: ".testimonial-block blockquote"
+    },
+    testimonialName: {
+      type: "string",
+      source: "html",
+      selector: ".testimonial-info p"
+    },
+    testmonialImage: {
+      type: "string",
+      source: "attribute",
+      attribute: "src",
+      selector: ".testimonial-info img"
+    },
+    testimonialColor: {
+      type: "string"
     }
   },
 
   edit: props => {
-    //Reads the text from the testimonial
-    const onChangeTestimonialText = newText => {
-      console.log(newText);
-    };
-
     //Extract contents from attributes
     const {
-      attributes: { testimonialText }
+      attributes: {
+        testimonialText,
+        testimonialName,
+        testmonialImage,
+        testimonialColor
+      },
+      setAttributes
     } = props;
 
+    //Reads the text from the testimonial
+    const onChangeTestimonialText = newText => {
+      setAttributes({ testimonialText: newText });
+    };
+
+    const onChangeTestimonialName = personName => {
+      setAttributes({ testimonialName: personName });
+    };
+
+    //Access selected image
+    const onSelectImage = newImage => {
+      setAttributes({ testmonialImage: newImage.sizes.medium.url });
+    };
+
+    const onChangeTestimonialColor = newColor => {
+      setAttributes({ testimonialColor: newColor });
+    };
+
     return (
-      <div className="testimonial-block">
-        <blockquote>
-          <RichText onChange={onChangeTestimonialText} />
-        </blockquote>
-        <div className="testimonial-info">
-          <img src="img/testimonial.jpg" />
-          <p>Alice White AnyCompany CEO</p>
+      <>
+        <InspectorControls>
+          <PanelBody title="Color Options">
+            <div className="components-based-control">
+              <div className="components-based-control__field">
+                <label className="components=based-control__label">
+                  Name person's color and line
+                </label>
+                <ColorPalette onChange={onChangeTestimonialColor} />
+              </div>
+            </div>
+          </PanelBody>
+        </InspectorControls>
+        <div
+          className="testimonial-block"
+          style={{ borderColor: testimonialColor }}
+        >
+          <blockquote>
+            <RichText
+              onChange={onChangeTestimonialText}
+              value={testimonialText}
+            />
+          </blockquote>
+          <div className="testimonial-info">
+            <img src={testmonialImage} />
+            <MediaUpload
+              onSelect={onSelectImage}
+              type="image"
+              render={({ open }) => {
+                return <Button onClick={open}>Open Media Library</Button>;
+              }}
+            />
+            <p>
+              <RichText
+                placeholder="Add the person for testimonial"
+                onChange={onChangeTestimonialName}
+                value={testimonialName}
+                style={{ color: testimonialColor }}
+              />
+            </p>
+          </div>
         </div>
-      </div>
+      </>
     );
   },
 
-  save: () => {
+  save: props => {
+    //Extract the contents from props
+    const {
+      attributes: {
+        testimonialText,
+        testimonialName,
+        testmonialImage,
+        testimonialColor
+      },
+      setAttributes
+    } = props;
+
     return (
-      <div className="testimonial-block">
+      <div
+        className="testimonial-block"
+        style={{ borderColor: testimonialColor }}
+      >
         <blockquote>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi
-          voluptatem reiciendis id placeat libero. Explicabo nulla pariatur iure
-          repudiandae officiis accusamus deleniti provident possimus omnis.
-          Ipsum ipsa placeat recusandae consequatur. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Quidem qui doloremque culpa molestiae.
+          <RichText.Content value={testimonialText} />
         </blockquote>
         <div className="testimonial-info">
-          <img src="img/testimonial.jpg" />
-          <p>Alice White AnyCompany CEO</p>
+          <img src={testmonialImage} />
+          <p style={{ color: testimonialColor }}>
+            <RichText.Content value={testimonialName} />
+          </p>
         </div>
       </div>
     );
