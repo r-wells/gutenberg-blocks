@@ -2,3 +2,4 @@
 import "./testimonial";
 import "./hero";
 import "./imageText";
+import "./latest";

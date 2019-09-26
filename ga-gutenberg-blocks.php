@@ -53,6 +53,14 @@ function ga_register_gutenberg_blocks() {
             'style' => 'ga-frontend-style'
         ) );
     }
+
+    //Enqueue the Dynamic block (latest recipes)
+    register_block_type('ga/latest', array(
+        'editor_script' => 'ga-editor-script',
+        'editor_style' => 'ga-editor-style',
+        'style' => 'ga-frontend-style',
+        'render_callback' => 'ga_latest_recipes_block'
+    ));
 }
 
 /**Custom Categories */
@@ -68,4 +76,9 @@ function ga_new_gutenberg_category( $categories, $post ) {
             ),
         )
         );
+}
+
+//Callback displaying 3 latest recipes
+function ga_latest_recipes_block() {
+    echo "from the callback";
 }

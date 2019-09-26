@@ -471,10 +471,95 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _testimonial__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./testimonial */ "./src/testimonial/index.js");
 /* harmony import */ var _hero__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hero */ "./src/hero/index.js");
 /* harmony import */ var _imageText__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./imageText */ "./src/imageText/index.js");
+/* harmony import */ var _latest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./latest */ "./src/latest/index.js");
 /**Main file to import different blocks */
 
 
 
+
+
+/***/ }),
+
+/***/ "./src/latest/index.js":
+/*!*****************************!*\
+  !*** ./src/latest/index.js ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ga-logo.svg */ "./src/ga-logo.svg");
+
+var registerBlockType = wp.blocks.registerBlockType;
+var withSelect = wp.data.withSelect;
+
+/**
+ * Steps to make a Gutenberg Block Editable / Dynamic
+ * 1) Import the component you want to use
+ * 2) Place the component where you want to use it
+ * 3) Create a function to read the contents
+ * 4) Register an Attribute
+ * 5) Extract the contents from props
+ * 6) Save the contents in this attribute
+ * 7) Use the attribute on save()
+ */
+
+registerBlockType("ga/latest", {
+  title: "GA Latest Recipes",
+  icon: {
+    src: _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__["ReactComponent"]
+  },
+  category: "gourmet-artist",
+  edit: withSelect(function (select) {
+    return {
+      //Send GET request to WP Rest API
+      posts: select("core").getEntityRecords("postType", "recipes", {
+        per_page: 3
+      })
+    };
+  })(function (_ref) {
+    var posts = _ref.posts;
+
+    if (!posts) {
+      return "Loading...";
+    }
+
+    if (posts && posts.length === 0) {
+      return "There are no posts to return";
+    }
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, "Latest Recipes Block"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
+      className: "latest-recipes container"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      src: "img/recipe1.jpg"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "content"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, "Delicious Breakfast in 10 min"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Morbi eget iaculis tellus. Vestibulum eu leo odio. Pellentesque lacus magna, suscipit sed semper sed, tempor vitae nisi. Vivamus venenatis, lacus in ultricies pharetra, odio mi sagittis ipsum, ac maximus turpis mi eu mauris.", " "), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: "#",
+      className: "button"
+    }, "Read More"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      src: "img/recipe2.jpg"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "content"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, "Pancakes for your next meeting"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Morbi eget iaculis tellus. Vestibulum eu leo odio. Pellentesque lacus magna, suscipit sed semper sed, tempor vitae nisi. Vivamus venenatis, lacus in ultricies pharetra, odio mi sagittis ipsum, ac maximus turpis mi eu mauris.", " "), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: "#",
+      className: "button"
+    }, "Read More"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      src: "img/recipe3.jpg"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "content"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, "Amazing barbecue at home"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Morbi eget iaculis tellus. Vestibulum eu leo odio. Pellentesque lacus magna, suscipit sed semper sed, tempor vitae nisi. Vivamus venenatis, lacus in ultricies pharetra, odio mi sagittis ipsum, ac maximus turpis mi eu mauris.", " "), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: "#",
+      className: "button"
+    }, "Read More")))));
+  }),
+  save: function save() {
+    return null;
+  }
+});
 
 /***/ }),
 
