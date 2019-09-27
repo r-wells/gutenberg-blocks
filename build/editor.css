@@ -1,23 +1,53 @@
 .image-text-block {
-    color: white;
+  color: white;
 }
 .editor-styles-wrapper ul {
-    list-style: none!important;
+  list-style: none !important;
 }
 .latest-recipes {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 @media (min-width: 768px) {
-    .latest-recipes {
-        display: flex;
-        justify-content: space-between;
-    }
-    .latest-recipes li {
-        flex: 0 0 calc(33.3% - 2rem);
-    }
+  .latest-recipes {
+    display: flex;
+    justify-content: space-between;
+  }
+  .latest-recipes li {
+    flex: 0 0 calc(33.3% - 2rem);
+  }
 }
-.latest-recipes-heading{
-    width: 100%;
-    text-align: center;
+.latest-recipes-heading {
+  width: 100%;
+  text-align: center;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: #cccccc;
+  }
+
+  100% {
+    background-color: #ffffff;
+  }
+}
+
+.wp-block-cgb-block-guten-load-post {
+  padding: 0.5em;
+  border: 1px dashed rgba(0, 0, 0, 0.5);
+
+  &.no-post {
+    background: yellow;
+    animation: none;
+  }
+  &.loading {
+    animation: pulse 3s infinite;
+  }
+
+  &.has-post {
+    animation: none;
+  }
 }

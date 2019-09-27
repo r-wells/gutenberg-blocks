@@ -18,7 +18,7 @@ function ga_register_gutenberg_blocks() {
     wp_register_script(
         'ga-editor-script',
         plugins_url('build/index.js', __FILE__), //url to file
-        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'), //dependencies
+        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-api', 'wp-components'), //dependencies
         filemtime( plugin_dir_path(__FILE__) . 'build/index.js' ) //version
     );
 
@@ -42,7 +42,8 @@ function ga_register_gutenberg_blocks() {
     $blocks = array(
         'ga/testimonial',
         'ga/hero',
-        'ga/imagetext'
+        'ga/imagetext',
+        'ga/select-post'
     );
 
     //Add the blocks and the stylesheets
