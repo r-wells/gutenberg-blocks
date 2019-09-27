@@ -1,6 +1,8 @@
+const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { RichText } = wp.editor;
+const { RichText, InspectorControls } = wp.editor;
 const { withSelect } = wp.data;
+const { SelectControl, PanelBody } = wp.components;
 import { ReactComponent as Logo } from "../ga-logo.svg";
 
 /**
@@ -51,10 +53,15 @@ registerBlockType("ga/latest", {
                     <RichText.Content
                       value={post.content.rendered.substring(0, 180)}
                     />
+                    {/* <InspectorControls>
+                      <SelectControl
+                        // onChange={this.onChangeSelectPost}
+                        // value={this.props.attributes.selectedPost}
+                        label={__("Select a post")}
+                        // options={options}
+                      />
+                    </InspectorControls> */}
                   </p>
-                  <a href={post.link} className="button">
-                    Read More
-                  </a>
                 </div>
               </li>
             );

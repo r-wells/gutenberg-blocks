@@ -43,7 +43,8 @@ function ga_register_gutenberg_blocks() {
         'ga/testimonial',
         'ga/hero',
         'ga/imagetext',
-        'ga/select-post'
+        'ga/select-post',
+        'ga/select-post-nested'
     );
 
     //Add the blocks and the stylesheets

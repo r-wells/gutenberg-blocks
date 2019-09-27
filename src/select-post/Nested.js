@@ -1,5 +1,6 @@
 const { __ } = wp.i18n;
 const { registerBlockType, InspectorControls } = wp.blocks;
+const { InnerBlocks } = wp.editor;
 // const { withSelect } = wp.data;
 const { SelectControl } = wp.components;
 const { Component } = wp.element;
@@ -31,7 +32,7 @@ registerBlockType("ga/select-post", {
     }
   },
 
-  edit: MySelectPosts,
+  edit: () => {},
 
   save: props => {
     return (

@@ -43,7 +43,7 @@ class MySelectPosts extends Component {
   onChangeSelectPost(value) {
     //Find the post
     const post = this.state.posts.find(item => item.id === parseInt(value));
-    console.log(post);
+    console.log(value);
     //Set the state
     this.setState({ selectedPost: parseInt(value), post });
     //set the attributes
@@ -101,9 +101,10 @@ class MySelectPosts extends Component {
           />
         </InspectorControls>
       ),
-      <div className={this.props.className}>{output}</div>
+      <>
+        <div className={this.props.className}>{output}</div>
+      </>
     ];
-    // return "Enagage";
   }
 }
 

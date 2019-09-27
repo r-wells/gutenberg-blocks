@@ -652,7 +652,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _imageText__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./imageText */ "./src/imageText/index.js");
 /* harmony import */ var _latest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./latest */ "./src/latest/index.js");
 /* harmony import */ var _select_post__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./select-post */ "./src/select-post/index.js");
+/* harmony import */ var _select_post_nested__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./select-post-nested */ "./src/select-post-nested/index.js");
 /**Main file to import different blocks */
+
 
 
 
@@ -674,9 +676,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ga-logo.svg */ "./src/ga-logo.svg");
 
+var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
-var RichText = wp.editor.RichText;
+var _wp$editor = wp.editor,
+    RichText = _wp$editor.RichText,
+    InspectorControls = _wp$editor.InspectorControls;
 var withSelect = wp.data.withSelect;
+var _wp$components = wp.components,
+    SelectControl = _wp$components.SelectControl,
+    PanelBody = _wp$components.PanelBody;
 
 /**
  * Steps to make a Gutenberg Block Editable / Dynamic
@@ -723,14 +731,57 @@ registerBlockType("ga/latest", {
         className: "content"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, post.title.rendered), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
         value: post.content.rendered.substring(0, 180)
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-        href: post.link,
-        className: "button"
-      }, "Read More")));
+      }))));
     })));
   }),
   save: function save() {
     return null;
+  }
+});
+
+/***/ }),
+
+/***/ "./src/select-post-nested/index.js":
+/*!*****************************************!*\
+  !*** ./src/select-post-nested/index.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ga-logo.svg */ "./src/ga-logo.svg");
+
+var __ = wp.i18n.__;
+var _wp$blocks = wp.blocks,
+    registerBlockType = _wp$blocks.registerBlockType,
+    InspectorControls = _wp$blocks.InspectorControls;
+var InnerBlocks = wp.editor.InnerBlocks; // const { withSelect } = wp.data;
+
+var SelectControl = wp.components.SelectControl;
+var Component = wp.element.Component;
+
+registerBlockType("ga/select-post-nested", {
+  title: "Select Post Nested",
+  icon: {
+    src: _ga_logo_svg__WEBPACK_IMPORTED_MODULE_1__["ReactComponent"]
+  },
+  category: "gourmet-artist",
+  edit: function edit(props) {
+    // return "engage";
+    var className = props.className;
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      allowedBlocks: ["ga/select-post"]
+    }))];
+  },
+  save: function save(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: props.className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
   }
 });
 
@@ -836,7 +887,7 @@ function (_Component) {
       var post = this.state.posts.find(function (item) {
         return item.id === parseInt(value);
       });
-      console.log(post); //Set the state
+      console.log(value); //Set the state
 
       this.setState({
         selectedPost: parseInt(value),
@@ -901,9 +952,9 @@ function (_Component) {
         value: this.props.attributes.selectedPost,
         label: __("Select a post"),
         options: options
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__["createElement"])("div", {
         className: this.props.className
-      }, output)]; // return "Enagage";
+      }, output))];
     }
   }]);
 
@@ -931,8 +982,7 @@ __webpack_require__.r(__webpack_exports__);
 var __ = wp.i18n.__;
 var _wp$blocks = wp.blocks,
     registerBlockType = _wp$blocks.registerBlockType,
-    InspectorControls = _wp$blocks.InspectorControls; // const { RichText } = wp.editor;
-// const { withSelect } = wp.data;
+    InspectorControls = _wp$blocks.InspectorControls; // const { withSelect } = wp.data;
 
 var SelectControl = wp.components.SelectControl;
 var Component = wp.element.Component;
