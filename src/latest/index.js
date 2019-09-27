@@ -1,4 +1,5 @@
 const { registerBlockType } = wp.blocks;
+const { RichText } = wp.editor;
 const { withSelect } = wp.data;
 import { ReactComponent as Logo } from "../ga-logo.svg";
 
@@ -38,51 +39,26 @@ registerBlockType("ga/latest", {
       <>
         <h1>Latest Recipes Block</h1>
         <ul className="latest-recipes container">
-          <li>
-            <img src="img/recipe1.jpg" />
-            <div className="content">
-              <h2>Delicious Breakfast in 10 min</h2>
-              <p>
-                Morbi eget iaculis tellus. Vestibulum eu leo odio. Pellentesque
-                lacus magna, suscipit sed semper sed, tempor vitae nisi. Vivamus
-                venenatis, lacus in ultricies pharetra, odio mi sagittis ipsum,
-                ac maximus turpis mi eu mauris.{" "}
-              </p>
-              <a href="#" className="button">
-                Read More
-              </a>
-            </div>
-          </li>
-          <li>
-            <img src="img/recipe2.jpg" />
-            <div className="content">
-              <h2>Pancakes for your next meeting</h2>
-              <p>
-                Morbi eget iaculis tellus. Vestibulum eu leo odio. Pellentesque
-                lacus magna, suscipit sed semper sed, tempor vitae nisi. Vivamus
-                venenatis, lacus in ultricies pharetra, odio mi sagittis ipsum,
-                ac maximus turpis mi eu mauris.{" "}
-              </p>
-              <a href="#" className="button">
-                Read More
-              </a>
-            </div>
-          </li>
-          <li>
-            <img src="img/recipe3.jpg" />
-            <div className="content">
-              <h2>Amazing barbecue at home</h2>
-              <p>
-                Morbi eget iaculis tellus. Vestibulum eu leo odio. Pellentesque
-                lacus magna, suscipit sed semper sed, tempor vitae nisi. Vivamus
-                venenatis, lacus in ultricies pharetra, odio mi sagittis ipsum,
-                ac maximus turpis mi eu mauris.{" "}
-              </p>
-              <a href="#" className="button">
-                Read More
-              </a>
-            </div>
-          </li>
+          {posts.map(post => {
+            console.log(post);
+
+            return (
+              <li>
+                <img src={post.recipe_image} />
+                <div className="content">
+                  <h2>{post.title.rendered}</h2>
+                  <p>
+                    <RichText.Content
+                      value={post.content.rendered.substring(0, 180)}
+                    />
+                  </p>
+                  <a href={post.link} className="button">
+                    Read More
+                  </a>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </>
     );
